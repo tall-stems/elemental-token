@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
 import './style.scss';
+import Battle from './Views/Battle';
+import GameOver from './Views/GameOver';
 import Title from './Views/Title';
 
 /*
@@ -14,7 +16,6 @@ export default function App() {
 
   const startGame = () => {
     setView('Battle');
-    console.log(view);
   };
 
   const gameOver = () => {
@@ -27,7 +28,11 @@ export default function App() {
 
   return (
     <div>
-      <Title startClick={startGame} />
+      {'Title' === view && <Title onClick={startGame} />}
+      {'Battle' === view && <Battle onExit={titleScreen} onEnd={gameOver} />}
+      {'GameOver' === view && (
+        <GameOver onStartOver={startGame} onExit={titleScreen} />
+      )}
     </div>
   );
 }
